@@ -1,0 +1,512 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+    margin: 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* 游戏容器样式 */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background-color: #c0c0c0;
+    border: 3px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: visible !important;
+}
+
+h1 {
+    color: #333;
+    margin: 5px 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+}
+
+.game-info {
+    margin: 10px 0 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 5px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 120px;
+}
+
+.difficulty-selector label {
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+#difficulty {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    min-width: 100px;
+}
+
+#difficulty:hover {
+    border-color: #4ecdc4;
+}
+
+.stats {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.stat-item {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+    min-width: 100px;
+    display: inline-block;
+    text-align: right;
+}
+
+.stat-item span:first-child {
+    color: #777;
+    margin-right: 5px;
+}
+
+.stat-item span:not(:first-child) {
+    color: #ff6b6b;
+    min-width: 40px;
+    display: inline-block;
+    text-align: right;
+}
+
+/* 工具栏样式 */
+.tools {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.tool-btn {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #4ecdc4, #26a69a);
+    color: white;
+    position: relative;
+    min-width: 80px;
+}
+
+.tool-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tool-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    min-width: 80px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(31, 1fr);
+    grid-template-rows: repeat(31, 1fr);
+    gap: 0px;
+    padding: 15px;
+    background-color: #ccc;
+    border-radius: 8px;
+    border: 2px solid #999;
+    box-sizing: border-box;
+    margin: 35px auto 0 auto;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 24px;
+        margin: 5px 0 10px 0;
+    }
+    
+    .stats {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .stat-item {
+        font-size: 14px;
+    }
+    
+    .tools {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .btn, .tool-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    .game-board {
+        padding: 10px;
+        margin: 20px auto 0 auto;
+        overflow-x: auto;
+    }
+    
+    .cell {
+        min-width: 30px;
+        min-height: 30px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 5px;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    .game-board {
+        padding: 8px;
+        margin: 15px auto 0 auto;
+    }
+    
+    .cell {
+        min-width: 35px;
+        min-height: 35px;
+        font-size: 18px;
+    }
+}
+
+.cell {
+    background-color: #f5f5f5;
+    border: 2px outset #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cell:hover:not(.revealed) {
+    background-color: #e8e8e8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.cell.revealed {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    cursor: default;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.cell.flagged {
+    background-color: #ffe4e1;
+    border-color: #ffb3b3;
+    transform: scale(1.05);
+}
+
+.cell.cake {
+    background-color: transparent;
+    color: #8b0000;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    animation: none;
+}
+
+.cell.exploded {
+    background-color: #ff99cc;
+    color: #8b0000;
+    border: 2px solid #ff69b4;
+    border-radius: 50%;
+}
+
+@keyframes pulse {
+    from { transform: scale(0.9); }
+    to { transform: scale(1.1); }
+}
+
+/* 数字颜色 */
+.cell.number-1 { color: #0000ff; }
+.cell.number-2 { color: #008000; }
+.cell.number-3 { color: #ff0000; }
+.cell.number-4 { color: #000080; }
+.cell.number-5 { color: #800000; }
+.cell.number-6 { color: #008080; }
+.cell.number-7 { color: #000000; }
+.cell.number-8 { color: #808080; }
+
+.instructions {
+    padding: 15px;
+    background-color: #f0f8ff;
+    border-radius: 12px;
+    text-align: left;
+    font-size: 0.9rem;
+    height: fit-content;
+    min-width: 250px;
+    max-width: 350px;
+    border: 2px solid #4682b4;
+    box-shadow: 0 4px 12px rgba(70, 130, 180, 0.15);
+    line-height: 1.6;
+}
+
+
+
+.instructions h3 {
+    color: #4682b4;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #4682b4;
+    padding-bottom: 8px;
+}
+
+.instructions ul {
+    list-style-position: inside;
+    color: #333;
+    padding-left: 10px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 5px;
+}
+
+.instructions li::before {
+    content: "•";
+    color: #4682b4;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 难度选择模态框样式 */
+#difficulty-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: modalAppear 0.3s ease-out;
+    max-width: 300px;
+    width: 80%;
+}
+
+/* 模态框标题 */
+.modal-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* 模态框中的表单元素 */
+.modal-content .difficulty-selector {
+    margin-bottom: 15px;
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 8px;
+}
+
+/* 确认难度按钮 */
+#confirm-difficulty-btn {
+    background: linear-gradient(45deg, #4ecdc4, #26a69a);
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+}
+
+/* 难度选择按钮样式 */
+#change-difficulty-btn {
+    background: linear-gradient(45deg, #2196F3, #1976D2);
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content h2 {
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.modal-content span {
+    color: #4ecdc4;
+    font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 1000px) {
+    .game-board {
+        /* 移除固定尺寸限制，让棋盘根据配置自适应 */
+    }
+}
+
+@media (max-width: 700px) {
+    .game-container {
+        padding: 10px;
+        margin: 5px;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .game-board {
+        flex-shrink: 0;
+    }
+    
+    .cell {
+        font-size: 10px;
+    }
+    
+    .stats {
+        flex-direction: column;
+        gap: 5px;
+        padding: 5px;
+    }
+    
+    .stat-item {
+        font-size: 0.9rem;
+    }
+    
+    .game-info {
+        flex-wrap: wrap;
+    }
+    
+    
+    /* 为小屏幕添加水平滚动支持 */
+    .game-container {
+        overflow-x: auto;
+        overflow-y: visible;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .game-board {
+        margin: 0 auto;
+    }
+}
